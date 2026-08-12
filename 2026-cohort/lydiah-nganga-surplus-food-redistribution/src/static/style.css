@@ -73,12 +73,22 @@ h1, h2, h3 {
 
 .brand-mark {
   flex: 0 0 auto;
+  height: 32px;
+  width: auto;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
   gap: 28px;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
 }
 
 .nav-links a {
@@ -184,20 +194,44 @@ h1, h2, h3 {
 /* (old .flow-strip-wrap removed -- flow-strip now lives inside hero-photo-content) */
 
 @media (max-width: 860px) {
-  .hero-photo { min-height: 460px; }
+  .hero-photo {
+    min-height: 0;
+    display: block;
+  }
+  .hero-photo-img {
+    object-position: 68% 38%;
+  }
   .hero-photo-overlay {
     background: linear-gradient(180deg,
-      rgba(20, 42, 26, 0.9) 30%,
-      rgba(20, 42, 26, 0.55) 65%,
-      rgba(20, 42, 26, 0.3) 100%);
+      rgba(20, 42, 26, 0.92) 0%,
+      rgba(20, 42, 26, 0.85) 55%,
+      rgba(20, 42, 26, 0.75) 100%);
+  }
+  .hero-photo-content {
+    padding: 48px 20px 32px;
+  }
+  .hero-photo-content h1 {
+    font-size: 32px;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .hero-photo-content .hero-sub {
+    font-size: 15.5px;
+    margin-bottom: 22px;
+  }
+  .flow-strip-compact {
+    margin-top: 24px;
   }
   .hero-caption {
-    left: 24px;
-    right: 24px;
-    bottom: 6%;
+    position: relative;
+    z-index: 2;
+    display: block;
     max-width: none;
     text-align: left;
-    font-size: 16px;
+    font-size: 14.5px;
+    margin: 20px 0 0;
+    padding: 0 20px 32px;
+    text-shadow: none;
   }
 }
 
@@ -1113,6 +1147,39 @@ button:focus-visible {
   .paths { grid-template-columns: 1fr; }
   .flow-strip { flex-wrap: nowrap; }
   .flow-label { font-size: 11px; }
-  .nav-links { gap: 14px; }
-  .nav-links a:not(.nav-cta) { display: none; }
+
+  .nav-toggle { display: block; }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--forest);
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding: 8px 0;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+  }
+
+  .nav-links.nav-open {
+    display: flex;
+  }
+
+  .nav-links a {
+    padding: 14px 24px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .nav-links a.nav-cta {
+    margin: 8px 24px;
+    width: calc(100% - 48px);
+    text-align: center;
+  }
+
+  .nav { position: relative; }
 }

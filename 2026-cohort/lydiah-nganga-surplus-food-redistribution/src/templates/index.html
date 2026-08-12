@@ -13,22 +13,21 @@
   <nav class="nav">
     <div class="nav-inner">
       <a href="/" class="nav-brand">
-        <svg class="brand-mark" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 11.5 Q13 19 21 11.5" stroke="#E8A33D" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M5 11.5 L21 11.5" stroke="#E8A33D" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M19.5 4.5A8.3 8.3 0 0122.8 11" stroke="#E8A33D" stroke-width="1.3" stroke-linecap="round"/>
-          <path d="M22.8 11l-2-2.3M22.8 11l-2.7 1" stroke="#E8A33D" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M6.5 4.5A8.3 8.3 0 003.2 11" stroke="#E8A33D" stroke-width="1.3" stroke-linecap="round"/>
-        </svg>
+        <img src="{{ url_for('static', filename='images/baki-logo-for-dark-nav.png') }}" alt="Baki logo" class="brand-mark">
         Baki
       </a>
-      <div class="nav-links">
-        <a href="#about">About</a>
+      <div class="nav-links" id="nav-links">
         <a href="#how-it-works">How it works</a>
         <a href="#faq">FAQ</a>
         <a href="/browse">Browse community deals</a>
+        <a href="#about">About</a>
         <a href="#list-form" class="nav-cta">List surplus food</a>
       </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="#F4F6F5" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
     </div>
   </nav>
 
@@ -40,7 +39,7 @@
       <p class="eyebrow">Automated surplus food matching</p>
       <h1>Surplus food, matched<br>before it spoils.</h1>
       <p class="hero-sub">
-        Local grocery vendors in Nairobi end up with perishable surplus that's
+        Local grocery vendors in Kenya, Nigeria, and South Africa end up with perishable surplus that's
         still good but can't wait until tomorrow. We connect it, in minutes,
         to the local pantry, NGO, or neighbor who can use it tonight.
       </p>
@@ -78,60 +77,20 @@
         <span class="stat-label">Food wasted per person, per year, in Nairobi (JICA, 2010)</span>
       </div>
       <div class="stat">
+        <span class="stat-number">113kg</span>
+        <span class="stat-label">Household food waste per person, per year, in Nigeria (~24.79M tonnes nationally; some methodologies estimate up to 189kg)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">27kg</span>
+        <span class="stat-label">Household food waste per person, per year, in South Africa (ranging 8–134kg across city-level studies)</span>
+      </div>
+      <div class="stat">
         <span class="stat-number">40%</span>
         <span class="stat-label">Of global food waste happens at food service + retail, the exact stage we target</span>
       </div>
       <div class="stat">
         <span class="stat-number">0</span>
         <span class="stat-label">National food-service waste data currently measured in Kenya, Nigeria, or South Africa</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="about reveal" id="about">
-    <div class="section-inner about-grid">
-      <div class="about-copy">
-        <p class="eyebrow">About Baki</p>
-        <h2>The coordination layer food redistribution has been missing.</h2>
-        <p class="about-body">
-          Local grocery vendors, along with restaurants and small hotels,
-          dump surplus perishable food every day, not because no one wants
-          it, but because there's no automated, hyper-local way to connect
-          it to the local pantries and NGOs who could redistribute it. Baki
-          is that coordination hub. A vendor logs a listing once; our
-          matching engine scores nearby pantries and NGOs by distance,
-          urgency, and available capacity, and fires an automated pickup
-          alert within seconds. When a listing is a better fit for a
-          discounted sale than a full donation, it goes straight to a public
-          community board instead, giving the vendor a way to recover some
-          value rather than a total loss.
-        </p>
-        <p class="about-body">
-          We operate across Kenya, Nigeria, and South Africa, in markets where
-          food waste is well documented at the household level but almost
-          entirely unmeasured at the point where we work: retail and food
-          service. That gap is both the problem and the opportunity.
-        </p>
-      </div>
-
-      <div class="about-visual" aria-hidden="true">
-        <p class="about-visual-label">Where global food waste happens</p>
-        <div class="waste-bar-row">
-          <span class="waste-bar-name">Household</span>
-          <div class="waste-bar-track"><div class="waste-bar-fill" style="width:60%; background:#8FA893;"></div></div>
-          <span class="waste-bar-pct">60%</span>
-        </div>
-        <div class="waste-bar-row">
-          <span class="waste-bar-name">Food service</span>
-          <div class="waste-bar-track"><div class="waste-bar-fill" style="width:28%; background:#E8A33D;"></div></div>
-          <span class="waste-bar-pct">28%</span>
-        </div>
-        <div class="waste-bar-row">
-          <span class="waste-bar-name">Retail</span>
-          <div class="waste-bar-track"><div class="waste-bar-fill" style="width:12%; background:#E8A33D;"></div></div>
-          <span class="waste-bar-pct">12%</span>
-        </div>
-        <p class="about-visual-note">The marigold slices, 40% combined, are where Baki operates. It's also the least measured part of the chain in our markets.</p>
       </div>
     </div>
   </section>
@@ -147,22 +106,22 @@
       <div class="impact-grid">
         <div class="impact-card">
           <svg class="impact-icon" width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 7l9-4 9 4-9 4-9-4z" stroke="#E8A33D" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 7v10l9 4 9-4V7" stroke="#E8A33D" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 11v10" stroke="#E8A33D" stroke-width="1.6"/></svg>
-          <span class="impact-number">{{ impact.total_listings }}</span>
+          <span class="impact-number" data-target="{{ impact.total_listings }}" data-decimals="0" data-suffix="">0</span>
           <span class="impact-label">Listings posted</span>
         </div>
         <div class="impact-card">
           <svg class="impact-icon" width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 8h16l-1.5 11a2 2 0 01-2 1.8H7.5a2 2 0 01-2-1.8L4 8z" stroke="#E8A33D" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 8a4 4 0 018 0" stroke="#E8A33D" stroke-width="1.6"/></svg>
-          <span class="impact-number">{{ impact.total_kg }}kg</span>
+          <span class="impact-number" data-target="{{ impact.total_kg }}" data-decimals="1" data-suffix="kg">0kg</span>
           <span class="impact-label">Total surplus food logged</span>
         </div>
         <div class="impact-card">
           <svg class="impact-icon" width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.4-9.5-9A5 5 0 0112 6a5 5 0 019.5 5c-2.5 4.6-9.5 9-9.5 9z" stroke="#E8A33D" stroke-width="1.6" stroke-linejoin="round"/></svg>
-          <span class="impact-number">{{ impact.donated_kg }}kg</span>
+          <span class="impact-number" data-target="{{ impact.donated_kg }}" data-decimals="1" data-suffix="kg">0kg</span>
           <span class="impact-label">Routed to NGOs, free</span>
         </div>
         <div class="impact-card">
           <svg class="impact-icon" width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke="#E8A33D" stroke-width="1.6" stroke-linejoin="round"/></svg>
-          <span class="impact-number">{{ impact.matched_count }}</span>
+          <span class="impact-number" data-target="{{ impact.matched_count }}" data-decimals="0" data-suffix="">0</span>
           <span class="impact-label">Automated NGO matches made</span>
         </div>
       </div>
@@ -273,6 +232,54 @@
     </div>
   </section>
 
+  <section class="about reveal" id="about">
+    <div class="section-inner about-grid">
+      <div class="about-copy">
+        <p class="eyebrow">About Baki</p>
+        <h2>The coordination layer food redistribution has been missing.</h2>
+        <p class="about-body">
+          Local grocery vendors, along with restaurants and small hotels,
+          dump surplus perishable food every day, not because no one wants
+          it, but because there's no automated, hyper-local way to connect
+          it to the local pantries and NGOs who could redistribute it. Baki
+          is that coordination hub. A vendor logs a listing once; our
+          matching engine scores nearby pantries and NGOs by distance,
+          urgency, and available capacity, and fires an automated pickup
+          alert within seconds. When a listing is a better fit for a
+          discounted sale than a full donation, it goes straight to a public
+          community board instead, giving the vendor a way to recover some
+          value rather than a total loss.
+        </p>
+        <p class="about-body">
+          We operate across Kenya, Nigeria, and South Africa, in markets where
+          food waste is well documented at the household level but almost
+          entirely unmeasured at the point where we work: retail and food
+          service. That gap is both the problem and the opportunity.
+        </p>
+      </div>
+
+      <div class="about-visual" aria-hidden="true">
+        <p class="about-visual-label">Where global food waste happens</p>
+        <div class="waste-bar-row">
+          <span class="waste-bar-name">Household</span>
+          <div class="waste-bar-track"><div class="waste-bar-fill" style="width:60%; background:#8FA893;"></div></div>
+          <span class="waste-bar-pct">60%</span>
+        </div>
+        <div class="waste-bar-row">
+          <span class="waste-bar-name">Food service</span>
+          <div class="waste-bar-track"><div class="waste-bar-fill" style="width:28%; background:#E8A33D;"></div></div>
+          <span class="waste-bar-pct">28%</span>
+        </div>
+        <div class="waste-bar-row">
+          <span class="waste-bar-name">Retail</span>
+          <div class="waste-bar-track"><div class="waste-bar-fill" style="width:12%; background:#E8A33D;"></div></div>
+          <span class="waste-bar-pct">12%</span>
+        </div>
+        <p class="about-visual-note">The marigold slices, 40% combined, are where Baki operates. It's also the least measured part of the chain in our markets.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="cta-band reveal">
     <div class="section-inner narrow">
       <h2>No one has to go hungry over food that's still good.</h2>
@@ -366,11 +373,11 @@
       </div>
       <div class="footer-col">
         <span class="footer-heading">Explore</span>
-        <a href="/#about">About</a>
         <a href="/#how-it-works">How it works</a>
         <a href="/#partner">Partner with us</a>
         <a href="/#faq">FAQ</a>
         <a href="/browse">Live board</a>
+        <a href="/#about">About</a>
         <a href="/#list-form">List surplus food</a>
       </div>
     </div>
@@ -434,6 +441,48 @@
     });
   </script>
   <script>
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function animateCountUp(el) {
+      const target = parseFloat(el.dataset.target || '0');
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      const suffix = el.dataset.suffix || '';
+
+      if (prefersReducedMotion || target === 0) {
+        el.textContent = target.toFixed(decimals) + suffix;
+        return;
+      }
+
+      const duration = 1200;
+      const startTime = performance.now();
+
+      function tick(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out
+        const current = target * eased;
+        el.textContent = current.toFixed(decimals) + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          el.textContent = target.toFixed(decimals) + suffix;
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    const impactSection = document.getElementById('impact');
+    if (impactSection) {
+      const impactObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.impact-number').forEach(animateCountUp);
+            impactObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      impactObserver.observe(impactSection);
+    }
+
     const revealEls = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -444,6 +493,23 @@
       });
     }, { threshold: 0.15 });
     revealEls.forEach(el => observer.observe(el));
+  </script>
+
+  <script>
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinksEl = document.getElementById('nav-links');
+    if (navToggle && navLinksEl) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = navLinksEl.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      navLinksEl.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinksEl.classList.remove('nav-open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
   </script>
 
 </body>
