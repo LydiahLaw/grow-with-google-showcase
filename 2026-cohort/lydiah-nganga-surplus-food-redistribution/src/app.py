@@ -16,6 +16,7 @@ Routes:
 
 import json
 import os
+import re
 import time
 
 from flask import Flask, render_template, request
@@ -31,7 +32,75 @@ SUBSCRIBERS_PATH = os.path.join(DATA_DIR, "subscribers.json")
 
 with open(os.path.join(DATA_DIR, "locations.json")) as f:
     LOCATIONS = json.load(f)
+def validate_submission(form):
+    """Validate and sanitise vendor submission data."""
 
+    listing_type = form.get("listing_type", "donate").strip()
+
+    if listing_type not in {"donate", "sell"}:
+        raise ValueError("Invalid listing type.")
+
+    vendor_name = form.get("vendor_name", "").strip()
+    if not 2 <= len(vendor_name) <= 100:
+        raise ValueError("Vendor name must be between 2 and 100 characters.")
+
+    vendor_contact = form.get("vendor_contact", "").strip()
+    if not re.fullmatch(r"[0-9+()\- ]{7,20}", vendor_contact):
+        raise ValueError("Invalid contact number.")
+
+    food_type = form.get("food_type", "").strip()
+    if not 2 <= len(food_type) <= 100:
+        raise ValueError("Food type must be between 2 and 100 characters.")
+
+    try:
+        quantity_kg = float(form.get("quantity_kg", ""))
+    except (TypeError, ValueError):
+        raise ValueError("Quantity must be a valid number.")
+
+    if not 0 < quantity_kg <= 10000:
+        raise ValueError("Quantity must be between 0 and 10,000 kg.")
+
+    try:
+        expiry_hours = float(form.get("expiry_hours", ""))
+    except (TypeError, ValueError):
+        raise ValueError("Expiry time must be a valid number.")
+
+    if not 0 < expiry_hours <= 168:
+        raise ValueError("Expiry time must be between 1 and 168 hours.")
+
+    country_name = form.get("country", "").strip()
+    location_name = form.get("location", "").strip()
+
+    if country_name not in LOCATIONS:
+        raise ValueError("Invalid country.")
+
+    if location_name not in LOCATIONS[country_name]:
+        raise ValueError("Invalid location.")
+
+    sale_price = None
+
+    if listing_type == "sell":
+        sale_price_raw = form.get("sale_price", "").strip()
+
+        try:
+            sale_price = float(sale_price_raw)
+        except (TypeError, ValueError):
+            raise ValueError("Sale price must be a valid number.")
+
+        if not 0 <= sale_price <= 1000000:
+            raise ValueError("Sale price must be between R0 and R1,000,000.")
+
+    return {
+        "listing_type": listing_type,
+        "vendor_name": vendor_name,
+        "vendor_contact": vendor_contact,
+        "food_type": food_type,
+        "quantity_kg": quantity_kg,
+        "expiry_hours": expiry_hours,
+        "country": country_name,
+        "location": location_name,
+        "sale_price": sale_price,
+            }
 
 def load_subscribers():
     with open(SUBSCRIBERS_PATH) as f:
@@ -133,17 +202,24 @@ def browse():
 
 @app.route("/submit", methods=["POST"])
 def submit():
-    listing_type = request.form.get("listing_type", "donate")
-    vendor_name = request.form["vendor_name"]
-    vendor_contact = request.form["vendor_contact"]
-    food_type = request.form["food_type"]
-    quantity_kg = float(request.form["quantity_kg"])
-    expiry_hours = float(request.form["expiry_hours"])
-    country_name = request.form["country"]
-    location_name = request.form["location"]
+        try:
+        validated = validate_submission(request.form)
+    except ValueError as error:
+        return str(error), 400
+
+    listing_type = validated["listing_type"]
+    vendor_name = validated["vendor_name"]
+    vendor_contact = validated["vendor_contact"]
+    food_type = validated["food_type"]
+    quantity_kg = validated["quantity_kg"]
+    expiry_hours = validated["expiry_hours"]
+    country_name = validated["country"]
+    location_name = validated["location"]
+    sale_price = validated["sale_price"]
+
     coords = LOCATIONS[country_name][location_name]
 
-    if listing_type == "sell":
+    
         sale_price = request.form["sale_price"]
 
         board_entry = {
