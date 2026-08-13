@@ -32,6 +32,8 @@ SUBSCRIBERS_PATH = os.path.join(DATA_DIR, "subscribers.json")
 
 with open(os.path.join(DATA_DIR, "locations.json")) as f:
     LOCATIONS = json.load(f)
+
+
 def validate_submission(form):
     """Validate and sanitise vendor submission data."""
 
@@ -77,18 +79,19 @@ def validate_submission(form):
     if location_name not in LOCATIONS[country_name]:
         raise ValueError("Invalid location.")
 
+    if location_name not in LOCATIONS[country_name]:
+        raise ValueError("Invalid location.")
+
     sale_price = None
 
     if listing_type == "sell":
-        sale_price_raw = form.get("sale_price", "").strip()
+        sale_price = form.get("sale_price", "").strip()
 
-        try:
-            sale_price = float(sale_price_raw)
-        except (TypeError, ValueError):
-            raise ValueError("Sale price must be a valid number.")
+        if not sale_price:
+            raise ValueError("Sale price is required for sell listings.")
 
-        if not 0 <= sale_price <= 1000000:
-            raise ValueError("Sale price must be between R0 and R1,000,000.")
+        if len(sale_price) > 30:
+            raise ValueError("Sale price must be 30 characters or fewer.")
 
     return {
         "listing_type": listing_type,
@@ -100,8 +103,7 @@ def validate_submission(form):
         "country": country_name,
         "location": location_name,
         "sale_price": sale_price,
-            }
-
+    }
 def load_subscribers():
     with open(SUBSCRIBERS_PATH) as f:
         return json.load(f)
@@ -202,7 +204,7 @@ def browse():
 
 @app.route("/submit", methods=["POST"])
 def submit():
-        try:
+    try:
         validated = validate_submission(request.form)
     except ValueError as error:
         return str(error), 400
@@ -215,13 +217,12 @@ def submit():
     expiry_hours = validated["expiry_hours"]
     country_name = validated["country"]
     location_name = validated["location"]
-    sale_price = validated["sale_price"]
+  
 
     coords = LOCATIONS[country_name][location_name]
 
-    
-        sale_price = request.form["sale_price"]
-
+    # --- sell path ---
+    if listing_type == "sell":
         board_entry = {
             "listing_type": "sell",
             "vendor_name": vendor_name,
@@ -234,6 +235,7 @@ def submit():
             "sale_price": sale_price,
             "matched_ngo": None,
         }
+
         save_to_board(board_entry)
 
         notified_count = notify_matching_subscribers(board_entry)
@@ -256,9 +258,8 @@ def submit():
             notified_count=notified_count,
         )
 
-    # --- donate path: run the matching engine, notify the NGO, and ALSO
-    #     post to the public board so it's visible even if the automated
-    #     match doesn't work out or the NGO can't collect in time ---
+    # --- donate path ---
+    # Run the matching engine, notify the NGO, and post to the public board.
     listing = {
         "vendor_name": vendor_name,
         "vendor_location": location_name,
@@ -274,6 +275,7 @@ def submit():
 
     message = None
     matched_ngo_name = None
+
     if match:
         message = send_notification(match["ngo"], listing, match)
         matched_ngo_name = match["ngo"]["name"]
@@ -290,9 +292,15 @@ def submit():
         "sale_price": None,
         "matched_ngo": matched_ngo_name,
     }
+
     save_to_board(board_entry)
 
-    return render_template("result.html", listing_type="donate", match=match, message=message)
+    return render_template(
+        "result.html",
+        listing_type="donate",
+        match=match,
+        message=message,
+    )
 
 
 @app.route("/subscribe", methods=["POST"])
