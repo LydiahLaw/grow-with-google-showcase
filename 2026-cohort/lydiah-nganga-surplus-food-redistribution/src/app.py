@@ -34,6 +34,9 @@ with open(os.path.join(DATA_DIR, "locations.json")) as f:
 
 
 def load_subscribers():
+    if not os.path.exists(SUBSCRIBERS_PATH):
+        with open(SUBSCRIBERS_PATH, "w") as f:
+            f.write("[]")
     with open(SUBSCRIBERS_PATH) as f:
         return json.load(f)
 
@@ -63,6 +66,9 @@ def notify_matching_subscribers(listing):
 
 
 def load_board():
+    if not os.path.exists(PUBLIC_BOARD_PATH):
+        with open(PUBLIC_BOARD_PATH, "w") as f:
+            f.write("[]")
     with open(PUBLIC_BOARD_PATH) as f:
         return json.load(f)
 
