@@ -26,6 +26,16 @@ from notify import send_notification, send_community_alert
 
 app = Flask(__name__)
 
+@app.after_request
+def add_security_headers(response):
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Permissions-Policy"] = (
+        "camera=(), microphone=(), geolocation=()"
+    )
+    return response
+  
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 PUBLIC_BOARD_PATH = os.path.join(DATA_DIR, "public_board.json")
 SUBSCRIBERS_PATH = os.path.join(DATA_DIR, "subscribers.json")
