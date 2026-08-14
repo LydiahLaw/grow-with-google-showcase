@@ -19,7 +19,7 @@ import os
 import re
 import time
 
-from flask import Flask, render_template, request
+from flask import Flask, redirect, render_template, request
 
 from matching_engine import find_best_match
 from notify import send_notification, send_community_alert
@@ -218,8 +218,11 @@ def browse():
     )
 
 
-@app.route("/submit", methods=["POST"])
+@app.route("/submit", methods=["GET", "POST"])
 def submit():
+    if request.method == "GET":
+        return redirect("/")
+
     try:
         validated = validate_submission(request.form)
     except ValueError as error:
