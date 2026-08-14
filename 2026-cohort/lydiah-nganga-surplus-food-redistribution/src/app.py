@@ -26,6 +26,7 @@ from notify import send_notification, send_community_alert
 
 app = Flask(__name__)
 
+
 @app.after_request
 def add_security_headers(response):
     response.headers["X-Content-Type-Options"] = "nosniff"
@@ -35,7 +36,8 @@ def add_security_headers(response):
         "camera=(), microphone=(), geolocation=()"
     )
     return response
-  
+
+
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 PUBLIC_BOARD_PATH = os.path.join(DATA_DIR, "public_board.json")
 SUBSCRIBERS_PATH = os.path.join(DATA_DIR, "subscribers.json")
@@ -89,9 +91,6 @@ def validate_submission(form):
     if location_name not in LOCATIONS[country_name]:
         raise ValueError("Invalid location.")
 
-    if location_name not in LOCATIONS[country_name]:
-        raise ValueError("Invalid location.")
-
     sale_price = None
 
     if listing_type == "sell":
@@ -114,7 +113,10 @@ def validate_submission(form):
         "location": location_name,
         "sale_price": sale_price,
     }
+
+
 def load_subscribers():
+    """Load community subscribers, creating an empty file on first run."""
     if not os.path.exists(SUBSCRIBERS_PATH):
         with open(SUBSCRIBERS_PATH, "w") as f:
             f.write("[]")
@@ -123,6 +125,7 @@ def load_subscribers():
 
 
 def save_subscriber(entry):
+    """Append a new community subscriber to the subscribers file."""
     subs = load_subscribers()
     subs.append(entry)
     with open(SUBSCRIBERS_PATH, "w") as f:
@@ -147,6 +150,7 @@ def notify_matching_subscribers(listing):
 
 
 def load_board():
+    """Load the public board, creating an empty file on first run."""
     if not os.path.exists(PUBLIC_BOARD_PATH):
         with open(PUBLIC_BOARD_PATH, "w") as f:
             f.write("[]")
@@ -155,6 +159,7 @@ def load_board():
 
 
 def save_to_board(entry):
+    """Timestamp and append a new listing to the public board."""
     board = load_board()
     entry["posted_at"] = time.time()
     board.append(entry)
@@ -343,4 +348,9 @@ def subscribe():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
+    # Debug mode is OFF by default. Set FLASK_DEBUG=true in your local
+    # environment if you want Flask's interactive debugger while developing.
+    # Never enable this in production -- it exposes a remote code execution
+    # console on unhandled errors.
+    debug_mode = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=debug_mode)
