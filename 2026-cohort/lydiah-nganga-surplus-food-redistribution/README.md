@@ -1,6 +1,13 @@
 # Surplus Food Redistribution Network
 
-**Team Catalyst Alliance** Grow with Google x Mentor Me Collective, BUILD Project, 2026 Cohort
+**Team Catalyst Alliance** — Grow with Google x Mentor Me Collective, BUILD Project, 2026 Cohort
+
+🔗 **[Live Demo](https://baki-app.onrender.com/)** &nbsp;|&nbsp; 🎥 **[Walkthrough Video](#walkthrough-video)** &nbsp;|&nbsp; 📄 **[3-Page Summary & Slides](docs/06-Project%20Summary%20&%20Presentation/)**
+
+> ⚠️ **Note:** the live demo is hosted on Render's free tier. If it's been idle, the first load can take 30–60 seconds to wake up, please wait rather than assuming it's broken.
+
+<img width="1366" height="617" alt="hero" src="https://github.com/user-attachments/assets/a39b5611-8cf0-4e49-b57d-6b8588b766e2" />
+
 
 ## Table of Contents
 
@@ -10,6 +17,7 @@
 - [UN SDG Alignment](#un-sdg-alignment)
 - [Team](#team)
 - [How It Works](#how-it-works)
+- [Business Model](#business-model)
 - [Data & Privacy](#data--privacy)
 - [Data Sources](#data-sources)
 - [Tech Stack](#tech-stack)
@@ -32,13 +40,16 @@ This project is a lightweight web platform that lets a vendor log a surplus food
 
 The platform currently operates in Nairobi, Lagos, and Johannesburg.
 
+<img width="1366" height="613" alt="listing" src="https://github.com/user-attachments/assets/16bd8225-82fd-4639-844c-dde6d047f5b1" />
+
+
 ## Problem Grounding
 
-Food waste is a documented, substantial problem across all three countries represented on our team. According to the UNEP Food Waste Index Report 2024, Kenya has seven household food waste datapoints ranging from 40 to 100 kg per capita per year, with a 2010 JICA study specifically measuring Nairobi at 100 kg per capita per year the high end of the national range (UNEP, 2024). Nigeria shows the highest household food waste in Sub-Saharan Africa, estimated at 113 kg per capita per year and roughly 24.79 million tonnes nationally, with some methodologies putting the figure as high as 189 kg per capita per year (UNEP, 2024; Pulse Nigeria, 2024). South Africa's national estimate sits at 27 kg per capita per year, though the report notes this masks wide variation, with city-level studies ranging from 8 to 134 kg per capita per year (UNEP, 2024).
+Food waste is a documented, substantial problem across all three countries represented on our team. According to the UNEP Food Waste Index Report 2024, Kenya has seven household food waste datapoints ranging from 40 to 100 kg per capita per year, with a 2010 JICA study specifically measuring Nairobi at 100 kg per capita per year — the high end of the national range (UNEP, 2024). Nigeria shows the highest household food waste in Sub-Saharan Africa, estimated at 113 kg per capita per year and roughly 24.79 million tonnes nationally, with some methodologies putting the figure as high as 189 kg per capita per year (UNEP, 2024; Pulse Nigeria, 2024). South Africa's national estimate sits at 27 kg per capita per year, though the report notes this masks wide variation, with city-level studies ranging from 8 to 134 kg per capita per year (UNEP, 2024).
 
 Globally, the same report found that of all food wasted in 2022, 60% occurred at the household level, 28% at food service (restaurants, hotels, catering), and 12% at retail (UNEP, 2024). This is directly relevant to our project's focus: while household waste is comparatively well-measured across Kenya, Nigeria, and South Africa, **food service and retail waste — the exact vendor categories our platform targets — remain largely unmeasured at the national level in all three countries.** The report itself identifies this as a global data gap, particularly acute in low- and middle-income countries (UNEP, 2024).
 
-This isn't an assumption, UNEP's own data confirms it directly. In the report's G20 country table, South Africa's entry lists food service and retail as "No identified data." Regionally, of the 14 Sub-Saharan African countries with any household food waste data, only 1 has any food-service datapoint, and only 2 have any retail datapoint, covering just 5% and 6% of the region's population respectively, compared to 66% for household data. The report itself concludes there is "a notable absence of usable estimates for the retail and food service sectors, particularly in middle- and low-income countries."
+This isn't an assumption, UNEP's own data confirms it directly. In the report's G20 country table, South Africa's entry lists food service and retail as **"No identified data."** Regionally, of the 14 Sub-Saharan African countries with any household food waste data, only 1 has any food-service datapoint, and only 2 have any retail datapoint, covering just 5% and 6% of the region's population respectively, compared to 66% for household data. The report itself concludes there is **"a notable absence of usable estimates for the retail and food service sectors, particularly in middle- and low-income countries."**
 
 This gap is part of our project's rationale, not just a limitation of the data we could find: if restaurants, small hotels, and groceries in our countries are wasting food at anywhere close to the rate suggested by the food-service/retail share of global waste, there is currently no visibility into it, let alone a system for redirecting it to people who need it. Our MVP targets that specific, under-addressed slice of the problem.
 
@@ -68,6 +79,18 @@ This gap is part of our project's rationale, not just a limitation of the data w
 3. **Sell path:** the listing posts directly to the public live board at a vendor-set discounted price, and any community subscriber in that location gets an automated alert.
 4. Every listing is logged, powering the live impact numbers on the homepage — kg redistributed, kg sold, and match success rate.
 
+<img width="1366" height="613" alt="ngo match" src="https://github.com/user-attachments/assets/cb56171c-e6ee-4fb8-a53d-95471718817f" />
+
+
+## Business Model
+
+Donations stay free, permanently, that's core to the mission and non-negotiable. Revenue comes from a small transaction fee (5–10%) on the "sell to community" path, where money is already changing hands between vendor and buyer, so monetization never touches the social-impact side of the platform.
+
+Longer-term, two additional levers: a paid tier for high-volume vendors (bulk listing, recurring automated posts, waste analytics dashboards), and grant/CSR partnerships, given the direct SDG 2 alignment, food redistribution organizations commonly access non-dilutive funding alongside product revenue rather than relying on one or the other.
+
+<img width="1366" height="601" alt="live impact" src="https://github.com/user-attachments/assets/bf30743c-b332-4ed5-95cf-26f89530b2fa" />
+
+
 ## Data & Privacy
 
 Baki collects personal contact information from two groups:
@@ -86,7 +109,7 @@ All three countries we operate in have active, enforced data protection legislat
 - FAO Food Loss and Waste Database — country-level agricultural loss statistics for additional context.
 
 **Prototype logic (commodity urgency weighting in the matching engine):**
-- A cleaned operational grocery inventory dataset (see `docs/` research log), used to derive a relative risk ranking across food categories (surplus volume x inventory turnover speed).
+- A cleaned operational grocery inventory dataset (see `docs/01-Research`), used to derive a relative risk ranking across food categories (surplus volume x inventory turnover speed).
 
 ### Limitations
 
@@ -101,7 +124,7 @@ The pantries and NGOs in `data/ngos.json` are hand-built seed organizations for 
 - **Data:** JSON files (`ngos.json`, `locations.json`, `commodity_weights.json` as seed/reference data; `public_board.json`, `subscribers.json` as live runtime data)
 - **Notifications:** currently logged to `data/notifications.log` for demo purposes (no external API keys required to run); structured so a real SMS/WhatsApp provider (e.g. Twilio) can be swapped in later with changes confined to `notify.py`
 - **Containerization:** Docker, with a working `Dockerfile` and `docker-compose.yml`
-- **Deployment:** live on Render at [baki-app.onrender.com](https://baki-app.onrender.com)
+- **Deployment:** live on Render at [baki-app.onrender.com](https://baki-app.onrender.com/)
 
 ## Project Structure
 
@@ -133,7 +156,33 @@ lydiah-nganga-surplus-food-redistribution/
 │       ├── public_board.json       (gitignored, runtime data)
 │       └── subscribers.json        (gitignored, runtime data)
 └── docs/
-    └── (research notes, screenshots)
+    ├── 01-Research/
+    │   ├── Data Analysis Report.pdf
+    │   └── Research Report.pdf
+    ├── 02-Project Management/
+    │   ├── Project Charter.pdf
+    │   ├── Project Management Plan.pdf
+    │   ├── Project Timeline.pdf
+    │   ├── RACI Chart.pdf
+    │   ├── Risk Register.pdf
+    │   └── Project Communication Plan.pdf
+    ├── 03-Technical/
+    │   ├── Security Testing & Analysis/
+    │   ├── THREAT_MODEL.md
+    │   ├── RISK_REGISTER.md
+    │   └── SECURITY_TEST_PLAN.md
+    ├── 04-Meetings/
+    │   └── (kickoff + progress review notes)
+    ├── 05-Evidence/
+    │   └── Data Analysis - Charts.pdf
+    └── 06-Project Summary & Presentation/
+        ├── 3-page Project Summary.pdf
+        ├── Zero Hunger 2026 Presentation Slide.pdf
+        └── screenshots/
+            ├── hero.png
+            ├── live-board.png
+            ├── match-result.png
+            └── live-impact.png
 ```
 
 ## How to Run
@@ -152,6 +201,8 @@ docker compose up --build
 ```
 
 Either way, open `http://localhost:5000` in your browser.
+
+**Option C — no setup at all:** just use the [live demo](https://baki-app.onrender.com/).
 
 ## Walkthrough Video
 
