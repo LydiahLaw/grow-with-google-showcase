@@ -138,7 +138,7 @@ Either way, open `http://localhost:5000` in your browser.
 
 ## Walkthrough Video
 
-*(link to be added — max 5 minutes)*
+Watch the walkthrough video
 
 ## Roadmap
 
