@@ -233,8 +233,7 @@ def submit():
     expiry_hours = validated["expiry_hours"]
     country_name = validated["country"]
     location_name = validated["location"]
-  
-
+    sale_price = validated["sale_price"]
     coords = LOCATIONS[country_name][location_name]
 
     # --- sell path ---
@@ -341,8 +340,4 @@ def subscribe():
 
 
 if __name__ == "__main__":
-<<<<<<< HEAD
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
-=======
-    app.run(host="0.0.0.0", port=5000, debug=False)
->>>>>>> origin/cybersecurity-hardening
