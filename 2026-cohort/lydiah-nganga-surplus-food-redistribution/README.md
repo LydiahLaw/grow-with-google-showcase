@@ -12,6 +12,8 @@ Local grocery vendors, along with restaurants and small hotels, generate surplus
 
 This project is a lightweight web platform that lets a vendor log a surplus food listing, automatically matches it to the nearest suitable pantry, NGO, or collection point based on proximity, urgency (expiry window), and capacity, and sends an automated notification to the matched organization — closing the loop between "food about to be wasted" and "organization that can use it," in minutes instead of hours. Vendors can alternatively list surplus for discounted sale to the community, for surplus better suited to a small recovery than a full donation. Community members can also subscribe to get notified automatically when new discounted listings appear near them.
 
+The platform currently operates in Nairobi, Lagos, and Johannesburg.
+
 ## Problem Grounding
 
 Food waste is a documented, substantial problem across all three countries represented on our team. According to the UNEP Food Waste Index Report 2024, Kenya has seven household food waste datapoints ranging from 40 to 100 kg per capita per year, with a 2010 JICA study specifically measuring Nairobi at 100 kg per capita per year — the high end of the national range (UNEP, 2024). Nigeria shows the highest household food waste in Sub-Saharan Africa, estimated at 113 kg per capita per year and roughly 24.79 million tonnes nationally, with some methodologies putting the figure as high as 189 kg per capita per year (UNEP, 2024; Pulse Nigeria, 2024). South Africa's national estimate sits at 27 kg per capita per year, though the report notes this masks wide variation, with city-level studies ranging from 8 to 134 kg per capita per year (UNEP, 2024).
